@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta1/css/bootstrap.min.css"
+    />
+    <!-- Font Awesome Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+    />
+
+    <title>Comments</title>
+    <style>
+      body {
+        background: linear-gradient(135deg, #edf2f7, #e2e8f0);
+        font-family: 'Arial', sans-serif;
+        color: #333;
+      }
+      .container {
+        max-width: 800px;
+        margin: 50px auto;
+      }
+      h1 {
+        font-weight: bold;
+        font-size: 2.5rem;
+        color: #4a90e2;
+      }
+      .card {
+        background-color: #fff;
+        border: none;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        overflow: hidden;
+      }
+      .card-body {
+        padding: 20px;
+      }
+      .comment-text {
+        font-size: 1rem;
+        color: #555;
+        font-style: italic;
+        line-height: 1.6;
+      }
+      .comment-user {
+        font-weight: bold;
+        font-size: 1.1rem;
+        color: #333;
+      }
+      .text-muted {
+        font-size: 0.85rem;
+        color: #888;
+        margin-top: 10px;
+      }
+      .icon-quote {
+        font-size: 1.5rem;
+        color: #6c757d;
+        margin-right: 10px;
+      }
+      .card:not(:last-child) {
+        margin-bottom: 20px;
+      }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center mb-5">
+          <i class="fas fa-comments"></i> Comments
+        </h1>
+        <div class="row">
+            <div class="col-12">
+                {% for comment in comments %}
+                <div class="card">
+                    <div class="card-body">
+                        <p class="comment-user">
+                            <i class="fas fa-user-circle"></i> {{ comment.user }}
+                        </p>
+                        <p class="comment-text">
+                            <i class="fas fa-quote-left icon-quote"></i> {{ comment.content }}
+                        </p>
+                        <p class="text-muted">Commented on {{ comment.created_at }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta1/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

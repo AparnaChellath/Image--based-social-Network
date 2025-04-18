@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta1/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+    <title>Feed</title>
+    <style>
+      body {
+        background: linear-gradient(135deg, #f0f8ff, #e6e6fa);
+        font-family: Arial, sans-serif;
+        min-height: 100vh;
+        margin: 0;
+        color: #333;
+      }
+      .navbar {
+        background-color: #343a40 !important;
+      }
+      .navbar-brand {
+        color: #b0b0b0 !important;
+      }
+      .container {
+        padding-top: 20px;
+      }
+      .text-white {
+        font-size: 1.25rem;
+        font-weight: bold;
+      }
+      .img-fluid {
+        max-height: 400px;
+        object-fit: cover;
+        width: 100%;
+      }
+      .like-comment-section {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: 20px 0;
+        padding: 10px 20px;
+        background: rgba(255, 255, 255, 0.8);
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        width: 100%;
+      }
+      .like-comment-section form {
+        display: flex;
+        align-items: center;
+        margin-right: 10px;
+      }
+      .like-comment-section button {
+        border: none;
+        background: none;
+        font-size: 1.5rem;
+        margin-right: 10px;
+        cursor: pointer;
+        color: #e41212;
+        transition: color 0.3s ease;
+      }
+      .like-comment-section button:hover {
+        color: #c00;
+      }
+      .like-comment-section p {
+        margin: 0;
+        font-size: 1rem;
+        color: #555;
+      }
+      a.btn {
+        margin-left: 10px;
+      }
+      /* Custom styling for the View Comments button */
+      .view-comments-btn {
+        background: linear-gradient(45deg, #6a5acd, #7b68ee);
+        color: white;
+        font-weight: bold;
+        padding: 10px 20px;
+        border-radius: 20px;
+        text-decoration: none;
+        transition: all 0.3s ease-in-out;
+        display: inline-block;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+      .view-comments-btn:hover {
+        background: linear-gradient(45deg, #7b68ee, #544d80);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        transform: translateY(-2px);
+        color: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar bg-body-tertiary bg-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand text-muted">Feed</a>
+        <form class="d-flex" role="search" method="get" action="{% url 'search_users' %}">
+          <input class="form-control me-2" type="search" placeholder="Search for users" aria-label="Search" name="q">
+          <button class="btn btn-outline-success me-3" type="submit">Search</button>
+          {% if user.profile %}
+            <a href="{% url 'post_list_view' %}" class="btn btn-light">Account</a>
+          {% else %}
+            <a href="{% url 'profile_view' %}" class="btn btn-light">Account</a>
+          {% endif %}
+        </form>
+      </div>
+    </nav>
+    <nav>
+      <a href="{% url 'home_view' %}" class="btn btn-fade"><i class="fa-solid fa-arrow-left"></i></a>
+    </nav>
+
+    <div class="container mt-5 col-lg-8">
+      {% for post in posts %}
+      <div class="row mb-5">
+        <div class="col-lg-12">
+          <article>
+            <header class="mb-4">
+              <div class="navbar bg-dark"><h2 class="text-white">{{ post.user }}</h2></div>
+            </header>
+            <figure class="mb-4">
+              <img class="img-fluid rounded" src="{{ post.image.url }}" alt="{{ post.user }}">
+            </figure>
+            <div class="text-muted fst-italic mb-2">Posted on {{ post.date }}</div>
+            <p>{{ post.caption }}</p>
+          </article>
+        </div>
+      </div>
+
+      <!-- Like and Comment Section -->
+      <div class="like-comment-section">
+        <form method="post" action="{% url 'liked_view' post.id %}">
+          {% csrf_token %}
+          <button type="submit">
+            <i class="fa-solid fa-heart"></i>
+          </button>
+          <p>{{ post.like_count }}</p>
+        </form>
+        <a class="btn btn-success btn-xl" href="{% url 'comment_create_view' post.id %}">Comment</a>
+        <a class="btn btn-outline-dark" href="{% url 'save_post' post.id %}"><i class="fa-regular fa-bookmark"></i> Save</a>
+      </div>
+
+      <!-- View Comments -->
+      <div>
+        <a class="view-comments-btn" href="{% url 'comment_list' post.id %}">View Comments</a>
+      </div>
+      {% endfor %}
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta1/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

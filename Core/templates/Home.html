@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" />
+    <title>{{ profile.user.username }}'s Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9fafb;
+            margin: 0;
+            padding: 0;
+        }
+
+        .profile-header {
+            background-color: #3d1b01;
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-header h2 {
+            margin: 0;
+            font-size: 1.8rem;
+        }
+
+        .profile-header .bio {
+            color: #dcdcdc;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        .stats div {
+            font-size: 1rem;
+        }
+
+        .stats .number {
+            font-size: 1.4rem;
+            font-weight: bold;
+        }
+
+        .posts {
+            padding: 20px;
+        }
+
+        .post {
+            background-color: rgb(182, 160, 160);
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .post img {
+            width: 100%;
+            max-width: 900px;
+            object-fit: cover;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .post .caption {
+            font-size: 1rem;
+            font-weight: bold;
+            color: #333;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .post .date {
+            font-size: 0.85rem;
+            color: #777;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .post-icons {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .post-icons a {
+            color: #555;
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+
+        .post-icons a:hover {
+            color: #333;
+        }
+
+        .no-posts {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #888;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .profile-header {
+                text-align: center;
+            }
+
+            .stats {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .post img {
+                max-width: 100%;
+            }
+            .stats {
+    display: flex;
+    justify-content: space-around; /* Evenly distribute the elements */
+    text-align: center;
+    margin-top: 15px;
+}
+
+.stats div {
+    font-size: 1rem;
+}
+
+.stats .number {
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+
+        }
+        .menu-container {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: white;
+}
+
+.side-menu {
+    position: fixed;
+    top: 0;
+    right: -250px; /* Initially hidden */
+    width: 250px;
+    height: 100%;
+    background: #3d1b01;
+    padding-top: 20px;
+    transition: 0.3s;
+    box-shadow: -3px 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.side-menu ul {
+    list-style: none;
+    padding: 0;
+    text-align: center;
+}
+
+.side-menu ul li {
+    padding: 15px;
+}
+
+.side-menu ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.2rem;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+.show-menu {
+    right: 0; /* Slide in */
+}
+
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="{% url 'feed_view' %}" class="btn btn-fade"><i class="fa-solid fa-arrow-left"></i></a>
+    </nav>
+    <div class="profile-header">
+        <div class="menu-container">
+            <i class="fa-solid fa-bars menu-icon" style="color: #3d1b01; background-color: white;" onclick="toggleMenu()"></i>
+        </div>
+        {% for profile in profile %}
+        <div class="d-flex align-items-center gap-4">
+            
+            <div id="sideMenu" class="side-menu">
+                <button class="close-btn" onclick="toggleMenu()">&times;</button>
+                <ul>
+                    <li><a href="{% url 'post_create_view' %}">Create Post</a></li>
+                    <li><a href="{% url 'saved_posts_list' %}">Saved Posts</a></li>
+                    <li><a href="{% url 'detail_view' profile.id %}">profile</a></li>
+                </ul>
+            </div>
+            <!-- Profile Picture -->
+
+            <div class="rounded-circle overflow-hidden border border-white shadow-sm" style="width: 80px; height: 80px;">
+                {% if profile.profile_picture %}
+                <img src="{{ profile.profile_picture.url }}" alt="Profile Picture" class="img-fluid">
+                {% else %}
+                <img src="https://via.placeholder.com/80" alt="Default Profile Picture" class="img-fluid">
+                {% endif %}
+            </div>
+
+         
+            
+
+       
+            
+
+            <!-- Profile Info -->
+            <div>
+                <h2>{{ profile.user.username }}</h2>
+                <p class="bio">{{ profile.bio }}</p>
+                <div class="stats">
+                    <div>
+                        <span class="number">{{ posts.count }}</span>
+                        <br>Posts
+                    </div>
+                    <div class="profile-stats">
+                        <p><strong>{{ profile.followers.count }}</strong> Followers</p>
+                        <p><strong>{{ profile.following.count }}</strong> Following</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Posts Section -->
+    <div class="posts">
+        {% for post in posts %}
+        <div class="post position-relative mb-4">
+            <!-- Edit and Delete Icons -->
+            <div class="post-icons">
+                <a href="{% url 'post_edit_view' post.id %}" title="Edit Post">
+                    <i class="fa-solid fa-pen"></i>
+                </a>
+                <a href="{% url 'post_del_view' post.id %}" title="Delete Post" class="text-danger">
+                    <i class="fa-solid fa-trash"></i>
+                </a>
+            </div>
+
+            <!-- Post Image -->
+            <img src="{{ post.image.url }}" alt="Post Image">
+
+            <!-- Post Details -->
+            <p class="caption">{{ post.caption }}</p>
+            <p class="date">Posted on {{ post.date }}</p>
+        </div>
+        {% empty %}
+        <p class="no-posts">No posts yet! Start sharing your moments.</p>
+        {% endfor %}
+    </div>
+    <script>
+    function toggleMenu() {
+        document.getElementById("sideMenu").classList.toggle("show-menu");
+    }
+</script>
+
+</body>
+</html>

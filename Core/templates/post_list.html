@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Bootstrap CSS -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta1/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- FontAwesome Icons -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+    />
+
+    <title>Posts Feed</title>
+
+</head>
+
+<body>
+    <div class="posts">
+        {% for post in posts %}
+        <a href=""><i class="fa-regular fa-trash-can"></i></a>
+        <div class="post" style="display: flex; flex-direction: column; gap: 10px; border: 1px solid #ddd; border-radius: 10px; padding: 15px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); margin-bottom: 20px;">
+            <img src="{{ post.image.url }}" alt="Post Image" style="width: 700px; height: 700px; object-fit: cover; border-radius: 5px;">
+    
+            <p class="caption" style="font-size: 16px; font-weight: bold; margin: 0; color: #333;">Caption:{{ post.caption }}</p>
+            <p class="date" style="font-size: 14px; color: #777; margin: 0;">Posted on {{ post.date }}</p>
+        </div>
+        {% empty %}
+        <p class="no-posts" style="text-align: center; font-size: 18px; color: #999; margin-top: 20px;">No posts yet! Start sharing your moments.</p>
+        {% endfor %}
+    </div>
+    
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta1/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

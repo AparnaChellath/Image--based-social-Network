@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta1/css/bootstrap.min.css"
+    />
+
+    <!-- Font Awesome Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+    />
+    <link rel="stylesheet" 
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" 
+    integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <title>Saved Posts</title>
+    <style>
+      body {
+        background: #f8f9fa;
+        font-family: Arial, sans-serif;
+      }
+      .card {
+        border: none;
+        border-radius: 12px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+      .card-body {
+        position: relative;
+      }
+      .btn-primary {
+        background-color: #007bff;
+        border: none;
+        transition: background-color 0.3s ease;
+      }
+      .btn-primary:hover {
+        background-color: #0056b3;
+      }
+      .no-saved-posts {
+        text-align: center;
+        color: #6c757d;
+        font-size: 1.2rem;
+      }
+    </style>
+  </head>
+  <nav>
+    <a href="{% url 'feed_view' %}" class="btn btn-fade"><i class="fa-solid fa-arrow-left"></i></a>
+  </nav>
+  <body class="d-flex vw-100 vh-100 align-items-center justify-content-center">
+    <div class="container">
+      <h1 class="text-center mb-4 text-primary">
+        <i class="fas fa-bookmark"></i> Saved Posts
+      </h1>
+      <div class="row justify-content-center">
+        {% for saved_post in saved_posts %}
+        <div class="col-md-8 mb-4">
+          <div class="card">
+            <div class="card-body">
+              <!-- Post Image -->
+              <figure class="mb-4">
+                <img
+                  class="img-fluid rounded"
+                  src="{{ saved_post.post.image.url }}"
+                  alt="{{ saved_post.post.caption }}"
+                />
+              </figure>
+
+              <!-- Post Content -->
+              <p class="text-muted">
+                <i class="fas fa-user"></i> {{ saved_post.user.user.username }}
+              </p>
+              <p>{{ saved_post.post.caption }}</p>
+
+              <!-- View Post Button -->
+             
+            </div>
+          </div>
+        </div>
+        {% empty %}
+        <div class="no-saved-posts">
+          <p>No saved posts yet.</p>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta1/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

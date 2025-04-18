@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Bootstrap CSS -->
+    <!-- https://cdnjs.com/libraries/twitter-bootstrap/5.0.0-beta1 -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta1/css/bootstrap.min.css"
+    />
+
+    <!-- Icons: https://getbootstrap.com/docs/5.0/extend/icons/ -->
+    <!-- https://cdnjs.com/libraries/font-awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+    />
+
+    <title>Settings</title>
+  </head>
+   {% for i in profile %}
+
+    <body class="d-flex flex-column vw-100 vh-100 align-items-start justify-content-start">
+        <a href="{% url 'detail_view' i.id %}" class="profile-link">View Profile</a>
+        
+    </body>
+    {% endfor %}
+    
+    <style>
+        /* General body setup */
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+    
+        /* Link Styles */
+        .profile-link {
+            display: block;
+            margin: 15px 0; /* Spacing between links */
+            font-size: 1.2rem; /* Slightly larger font */
+            text-align: center;
+            color: #333; /* Dark text color */
+            text-decoration: none; /* Remove underline */
+            padding: 12px 20px; /* Padding inside the link */
+            border-radius: 8px; /* Rounded corners */
+            background-color: #fff; /* White background */
+            width: 200px; /* Fixed width for consistency */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Light shadow */
+            transition: transform 0.3s, background-color 0.3s, box-shadow 0.3s; /* Smooth animations */
+        }
+    
+        /* Hover effects */
+        .profile-link:hover {
+            background-color: #007bff; /* Change background on hover */
+            color: white; /* Change text color */
+            transform: translateY(-4px); /* Slight upward movement */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Stronger shadow */
+        }
+    
+        /* Optional: Active state to show when link is clicked */
+        .profile-link:active {
+            transform: translateY(2px); /* Slightly move down when clicked */
+        }
+    </style>
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta1/js/bootstrap.bundle.min.js"></script>
+
+  </body>
+</html>

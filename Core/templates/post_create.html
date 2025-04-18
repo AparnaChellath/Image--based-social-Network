@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Bootstrap CSS -->
+    <!-- https://cdnjs.com/libraries/twitter-bootstrap/5.0.0-beta1 -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta1/css/bootstrap.min.css"
+    />
+
+    <!-- Icons: https://getbootstrap.com/docs/5.0/extend/icons/ -->
+    <!-- https://cdnjs.com/libraries/font-awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+    />
+
+    <title>Hello, world!</title>
+  </head>
+  <body class="d-flex vw-100 vh-100 align-items-center justify-content-center">
+    <div 
+    class="d-flex justify-content-center align-items-center" 
+    style="background-image: url('media/Cover.jpg'); 
+           background-size: cover; 
+           background-position: center; 
+           width: 100vw; 
+           height: 100vh; 
+           margin: 0; 
+           padding: 50px; 
+           color: white;">
+    <form action="" method="post" enctype="multipart/form-data" style="background-color: rgba(0, 0, 0, 0.5); padding: 20px; border-radius: 10px;">
+        {% csrf_token %}
+        {{ form }}
+        <div class="d-flex justify-content-between mt-5">
+            <input type="submit"  
+                   class="btn btn-dark" 
+                   style="background-color: #441000; -webkit-text-fill-color: black; border: none; color: white; padding: 10px 20px; border-radius: 5px; transition: background-color 0.3s ease;" 
+                   value="Create">
+        </div>
+    </form>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta1/js/bootstrap.bundle.min.js"></script>
+
+    
+  </body>
+</html>

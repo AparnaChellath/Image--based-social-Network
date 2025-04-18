@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Bootstrap CSS -->
+    <!-- https://cdnjs.com/libraries/twitter-bootstrap/5.0.0-beta1 -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta1/css/bootstrap.min.css"
+    />
+
+    <!-- Icons: https://getbootstrap.com/docs/5.0/extend/icons/ -->
+    <!-- https://cdnjs.com/libraries/font-awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+    />
+
+    <title>Profile!</title>
+  </head>
+
+
+<div class="container mt-5" style="max-width: 600px; margin: auto; font-family: Arial, sans-serif;">
+    <div 
+        class="card" 
+        style="
+            border: none; 
+            border-radius: 15px; 
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef); 
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2); 
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        "
+        onmouseover="this.style.transform='scale(1.02)';" 
+        onmouseout="this.style.transform='scale(1)';"
+    >
+    <div class="text-center mt-3" style="padding-top: 20px;">
+        <img 
+            src="{{ profile.profile_picture.url }}" 
+            alt="Profile Picture" 
+            style="
+                width: 120px; 
+                height: 120px; 
+                object-fit: cover; 
+                border-radius: 50%; 
+                border: 3px solid #fff; 
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);"
+        >
+    </div>
+        <div 
+            class="card-body text-center" 
+            style="
+                padding: 20px; 
+                background-color: #fff; 
+                border-top: 1px solid #dee2e6;"
+        >
+            <h3 
+                class="card-title" 
+                style="
+                    font-size: 1.8rem; 
+                    font-weight: bold; 
+                    color: #343a40;"
+            >
+                {{ i.user.username }}
+            </h3>
+            <p style="color: #6c757d; font-size: 1rem;">
+                <strong>Bio:</strong> {{ profile.bio }}
+            </p>
+            <p style="color: #6c757d; font-size: 1rem;">
+                <strong>Gender:</strong> {{ profile.gender }}
+            </p>
+            <p style="color: #6c757d; font-size: 1rem;">
+                <strong>Date of Birth:</strong> {{ profile.dob }}
+            </p>
+            
+        </div>
+        <div 
+            class="card-footer text-center" 
+            style="
+                padding: 15px; 
+                background: linear-gradient(135deg, #343a40, #212529); 
+                color: #fff;
+                font-size: 0.9rem;"
+        >
+        <style>
+            .btn-brown {
+              display: inline-block;
+              padding: 10px 20px;
+              font-size: 16px;
+              color: #fff;
+              background-color: #8B4513; /* Brown color */
+              border: none;
+              border-radius: 5px;
+              text-decoration: none;
+              transition: background-color 0.3s, transform 0.2s;
+            }
+        
+            .btn-brown:hover {
+              background-color: #A0522D; /* Lighter brown for hover effect */
+              transform: scale(1.05); /* Slightly enlarge on hover */
+            }
+          </style>
+        <a href="{% url 'profedit_view' profile.id %}" class="btn-brown">Edit Profile</a>
+        <a href="{% url 'profdel_view' profile.id %}" class="btn-brown">Delete Profile</a>
+
+        </div>
+    </div>
+</div>
+
+
+
+  
+
+ 
+
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta1/js/bootstrap.bundle.min.js"></script>
+
+    
+  </body>
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+  <title>User Profiles</title>
+  <style>
+    body {
+      background: linear-gradient(135deg, #ffecd2, #fcb69f);
+      font-family: 'Arial', sans-serif;
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    .navbar {
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      background-color: #ffffff;
+    }
+
+    .profile-card {
+      border: none;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      background: rgba(255, 255, 255, 0.85);
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    .profile-picture {
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 4px solid #fcb69f;
+      margin-bottom: 15px;
+    }
+
+    .profile-title {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #343a40;
+    }
+
+    .profile-details {
+      font-size: 1rem;
+      color: #6c757d;
+    }
+
+    .btn {
+      border-radius: 25px;
+    }
+
+    h3 {
+      color: #343a40;
+    }
+
+    .container {
+      padding-top: 50px;
+      padding-bottom: 50px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 10px 0;
+      background: rgba(255, 255, 255, 0.85);
+      box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+  </style>
+</head>
+
+
+<body>
+  <nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+      <a href="{% url 'feed_view' %}" class="btn btn-primary">Feed</a>
+      <form class="d-flex ms-auto" method="get" action="{% url 'search_users' %}">
+        <input class="form-control me-2 rounded-pill" type="search" placeholder="Search for users" aria-label="Search"
+          name="q" value="{{ query }}">
+        <button class="btn btn-primary rounded-pill" type="submit">Search</button>
+      </form>
+    </div>
+  </nav>
+
+  <div class="container">
+    <h3>Search Results for "{{ query }}"</h3>
+
+    {% if results %}
+    {% for user in results %}
+    <div class="profile-card text-center">
+      <img src="{{ user.profile.profile_picture.url }}" alt="{{ user.username }}" class="profile-picture">
+      <h5 class="profile-title">{{ user.username }}</h5>
+      <p class="profile-details">{{ user.profile.bio|default:"No bio available." }}</p>
+
+      {% if user not in request.user.profile.following.all %}
+      <form method="post" action="" class="mt-3">
+        {% csrf_token %}
+        {% if user.is_authenticated %}
+        {% if profile in user.profile.following.all %}
+        <form action="{% url 'follow_toggle' profile.user.username %}" method="POST">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-danger">Unfollow</button>
+        </form>
+        {% else %}
+
+        <a href="follow_view"><button type="submit" class="btn btn-primary">Follow</button></a>
+
+        {% endif %}
+        {% endif %}
+      </form>
+      {% else %}
+      <form method="post" action="" class="mt-3">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Unfollow</button>
+      </form>
+      {% endif %}
+    </div>
+    {% endfor %}
+    {% else %}
+    <p class="text-center text-muted">No users found matching "{{ query }}".</p>
+    {% endif %}
+  </div>
+
+  <footer>
+    <p class="text-muted">&copy; 2025 Your Website</p>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
